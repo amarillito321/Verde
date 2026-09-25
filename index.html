@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador Comedor Escolar - IED Venecia</title>
+  <!-- Librería Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Enlace al archivo CSS externo -->
+  <link rel="stylesheet" href="syteles.css">
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Simulador de Desperdicio Económico y de Alimentos</h1>
+    <p>Proyecto Científico Olímpico (PCO) - Reto 4 | Grupo Verde Futuro - IED Venecia</p>
+  </header>
+
+  <div class="grid">
+    <!-- Panel 1: Controles de Población y Precios -->
+    <div class="card">
+      <h2>1. Población y Costos Ración ($4.000 - $15.000 COP)</h2>
+      
+      <div class="slider-group" style="background: #f0f7f4; padding: 10px; border-radius: 8px; border: 1px solid #c8e6c9;">
+        <label style="color: var(--primary);">👥 Estudiantes: <span class="badge" id="val-poblacion">500</span></label>
+        <input type="range" id="input-poblacion" min="50" max="2000" step="25" value="500">
+      </div>
+
+      <div style="margin-top: 10px;">
+        <label style="font-weight:600; font-size:0.85rem;">Servicio de Comida Evaluado:</label>
+        <select id="select-servicio">
+          <option value="desayuno">Desayuno (Aprox $4.050)</option>
+          <option value="almuerzo_comedor" selected>Almuerzo en Comedor ($8.500)</option>
+          <option value="almuerzo_salon">Almuerzo en Salón ($8.900)</option>
+        </select>
+      </div>
+
+      <div class="slider-group">
+        <label>💵 Valor de la Ración (COP): <span id="val-precio">$ 8.500</span></label>
+        <input type="range" id="input-precio" min="4000" max="15000" step="100" value="8500">
+      </div>
+
+      <p style="font-size: 0.82rem; color: #666; margin: 12px 0 8px 0;">Calificaciones Organolépticas (1 a 5):</p>
+      
+      <div class="slider-group">
+        <label>🌡️ Temperatura: <span id="val-temp">3.2</span></label>
+        <input type="range" id="input-temp" min="1" max="5" step="0.1" value="3.2">
+      </div>
+      
+      <div class="slider-group">
+        <label>👅 Sabor: <span id="val-sabor">3.1</span></label>
+        <input type="range" id="input-sabor" min="1" max="5" step="0.1" value="3.1">
+      </div>
+      
+      <div class="slider-group">
+        <label>🎨 Presentación: <span id="val-pres">3.2</span></label>
+        <input type="range" id="input-pres" min="1" max="5" step="0.1" value="3.2">
+      </div>
+    </div>
+
+    <!-- Panel 2: Impacto Físico y Financiero -->
+    <div class="card">
+      <h2>2. Pérdidas Estimadas (Físicas y Económicas)</h2>
+      
+      <div class="metric-grid">
+        <div class="metric-box">
+          <div class="metric-title">Aceptación (X)</div>
+          <div class="metric-value" id="res-x">3.17 / 5</div>
+        </div>
+        <div class="metric-box danger">
+          <div class="metric-title">% Desperdicio (Y)</div>
+          <div class="metric-value" id="res-y">28.3%</div>
+        </div>
+        <div class="metric-box danger">
+          <div class="metric-title">Desperdicio Diario</div>
+          <div class="metric-value" id="res-kg-dia">49.4 kg</div>
+        </div>
+        <div class="metric-box danger">
+          <div class="metric-title">Desperdicio Semanal</div>
+          <div class="metric-value" id="res-kg-semana">247 kg</div>
+        </div>
+        <div class="metric-box danger" style="grid-column: span 2;">
+          <div class="metric-title">Pérdida Económica Diaria</div>
+          <div class="metric-value" id="res-dinero-dia">$ 1.200.000</div>
+        </div>
+        <div class="metric-box danger" style="grid-column: span 2;">
+          <div class="metric-title">Pérdida Económica Semanal</div>
+          <div class="metric-value" id="res-dinero-semana">$ 6.000.000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Modelo Matemático -->
+    <div class="card">
+      <h2>3. Modelo Matemático ($Y = -15.0 \cdot X + 75.8$)</h2>
+      <div class="chart-container">
+        <canvas id="scatterChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- Panel 4: Composición por Alimento -->
+    <div class="card">
+      <h2>4. Desperdicio Diario por Alimento (kg)</h2>
+      <div class="chart-container">
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Panel 5: Registros Reales -->
+    <div class="card">
+      <h2>5. Muestras Reales en Comedor (10 Registros)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Reg.</th>
+            <th>Temp.</th>
+            <th>Sabor</th>
+            <th>Present.</th>
+            <th>Promedio ($X$)</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-registros"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Enlace al archivo JavaScript externo -->
+<script src="script.js"></script>
+
+</body>
+</html>
